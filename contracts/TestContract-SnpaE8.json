@@ -1,0 +1,20 @@
+{
+  "contractTitle": "TestContract",
+  "contractAddress": "0x123456789abcdef123456789abcdef1234567890",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getValue",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
