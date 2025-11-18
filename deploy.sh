@@ -77,7 +77,7 @@ fi
 
 # 2. Select node version
 if [[ -n "$KUDU_SELECT_NODE_VERSION_CMD" ]]; then
-  SELECT_NODE_VERSION="$KUDU_SELECT_NODE_VERSION_CMD" "$DEPLOYMENT_TARGET" "$DEPLOYMENT_SOURCE"
+  "$KUDU_SELECT_NODE_VERSION_CMD" "$DEPLOYMENT_TARGET" "$DEPLOYMENT_SOURCE"
   exitWithMessageOnError "select node version failed"
 fi
 
