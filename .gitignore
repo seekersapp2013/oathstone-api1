@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+*.swp
+*.swo
+.DS_Store
+deploy.zip
