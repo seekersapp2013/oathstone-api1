@@ -13,11 +13,11 @@ import { transfer } from './transfer.js';
 import { getBalance } from './getBalance.js';
 
 // Import CommonJS blockchain modules
-const { deployCeloContract } = require('./celo3.js');
-const { deployEthContract } = require('./eth2.js');
-const { deployBNBContract } = require('./newbnb.js');
-const { calculateCeloPrice } = require('./celoPrice.js');
-const { calculateEthPrice } = require('./ethPrice.js');
+const { deployCeloContract } = require('./celo3.cjs');
+const { deployEthContract } = require('./eth2.cjs');
+const { deployBNBContract } = require('./newbnb.cjs');
+const { calculateCeloPrice } = require('./celoPrice.cjs');
+const { calculateEthPrice } = require('./ethPrice.cjs');
 
 // Check for required files at startup
 const requiredFiles = [

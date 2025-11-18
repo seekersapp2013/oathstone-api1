@@ -1,6 +1,6 @@
 const { ethers } = require("ethers");
 const solc = require("solc");
-const { getConstructorArgs } = require("./constructorArgs"); // Import the constructorArgs module
+const { getConstructorArgs } = require("./constructorArgs.cjs"); // Import the constructorArgs module
 
 const CELOSCAN_BASE_URL = process.env.CELOSCAN_BASE_URL || 'https://celoscan.io/address/';
 const CELO_TESTNET_URL = process.env.CELO_TESTNET_URL;

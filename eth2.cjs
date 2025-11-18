@@ -1,6 +1,6 @@
 const { ethers } = require("ethers");
 const solc = require("solc");
-const { getConstructorArgs } = require("./constructorArgs"); // Import the constructorArgs module
+const { getConstructorArgs } = require("./constructorArgs.cjs"); // Import the constructorArgs module
 
 const INFURA_TESTNET_URL = process.env.ETH_TESTNET_URL; // Infura testnet URL
 const INFURA_MAINNET_URL = process.env.ETH_MAINNET_URL; // Infura mainnet URL
