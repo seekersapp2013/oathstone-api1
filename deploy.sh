@@ -75,13 +75,7 @@ if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
-# 2. Select node version
-if [[ -n "$KUDU_SELECT_NODE_VERSION_CMD" ]]; then
-  "$KUDU_SELECT_NODE_VERSION_CMD" "$DEPLOYMENT_TARGET" "$DEPLOYMENT_SOURCE"
-  exitWithMessageOnError "select node version failed"
-fi
-
-# 3. Install npm packages
+# 2. Install npm packages
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
   echo "Running npm install --production"
