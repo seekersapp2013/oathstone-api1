@@ -3,11 +3,21 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 // Import wallet and transfer handlers
 import { createWallet } from './createWallet.js';
 import { transfer } from './transfer.js';
 import { getBalance } from './getBalance.js';
+
+// Import CommonJS blockchain modules
+const { deployCeloContract } = require('./celo3.js');
+const { deployEthContract } = require('./eth2.js');
+const { deployBNBContract } = require('./newbnb.js');
+const { calculateCeloPrice } = require('./celoPrice.js');
+const { calculateEthPrice } = require('./ethPrice.js');
 
 // Check for required files at startup
 const requiredFiles = [
@@ -64,6 +74,15 @@ app.get('/health', (req, res) => {
 app.get('/createWallet', createWallet);
 app.post('/getBalance', getBalance);
 app.post('/transfer', transfer);
+
+// Blockchain deployment endpoints
+app.post('/celo', deployCeloContract);
+app.post('/eth', deployEthContract);
+app.post('/bnb', deployBNBContract);
+
+// Price calculation endpoints
+app.post('/celoPrice', calculateCeloPrice);
+app.post('/ethPrice', calculateEthPrice);
 
 
 
