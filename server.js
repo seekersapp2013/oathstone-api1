@@ -80,15 +80,73 @@ app.post('/celo', deployCeloContract);
 app.post('/eth', deployEthContract);
 app.post('/bnb', deployBNBContract);
 
+// Test endpoint for GET requests
+app.get('/celo-test', (req, res) => {
+    res.json({
+        message: "Celo endpoint is working! Use POST /celo with proper JSON body for contract deployment.",
+        expectedBody: {
+            environment: "0 for testnet, 1 for mainnet",
+            contractTitle: "MyToken",
+            solidityFiles: "Array of solidity files with name and code",
+            constructorArgs: "Array of constructor arguments",
+            userPrivateKey: "Your private key"
+        }
+    });
+});
+
 // Price calculation endpoints
 app.post('/celoPrice', calculateCeloPrice);
 app.post('/ethPrice', calculateEthPrice);
 
 
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal server error', message: err.message });
+});
+
+// 404 handler
+app.use((req, res) => {
+    console.log(`404 - Route not found: ${req.method} ${req.url}`);
+    res.status(404).json({ 
+        error: 'Route not found', 
+        method: req.method, 
+        url: req.url,
+        availableRoutes: [
+            'GET /',
+            'GET /health',
+            'GET /createWallet',
+            'POST /getBalance',
+            'POST /transfer',
+            'POST /celo',
+            'POST /eth',
+            'POST /bnb',
+            'POST /celoPrice',
+            'POST /ethPrice'
+        ]
+    });
+});
+
 // Start the server
-app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📡 Server ready to accept connections`);
+});
+
+// Handle server errors
+server.on('error', (err) => {
+    console.error('Server error:', err);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+        console.log('Server closed');
+        process.exit(0);
+    });
 });
 
 
