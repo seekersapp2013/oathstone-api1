@@ -1,5 +1,11 @@
-// CommonJS entry point for iisnode compatibility
-const path = require('path');
+// ES module entry point
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set the port from environment or default
 process.env.PORT = process.env.PORT || 3001;
@@ -12,7 +18,6 @@ async function startServer() {
     console.log('🌐 Port:', process.env.PORT);
     
     // Check if required files exist
-    const fs = require('fs');
     const requiredFiles = [
       path.join(__dirname, 'data.json'),
       path.join(__dirname, 'oathstone.js'),
