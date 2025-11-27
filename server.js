@@ -12,12 +12,26 @@ import { createWallet } from './createWallet.js';
 import { transfer } from './transfer.js';
 import { getBalance } from './getBalance.js';
 
-// Import CommonJS blockchain modules
-const { deployCeloContract } = require('./celo3.cjs');
-const { deployEthContract } = require('./eth2.cjs');
-const { deployBNBContract } = require('./newbnb.cjs');
-const { calculateCeloPrice } = require('./celoPrice.cjs');
-const { calculateEthPrice } = require('./ethPrice.cjs');
+// Import CommonJS blockchain modules with error handling
+let deployCeloContract, deployEthContract, deployBNBContract, calculateCeloPrice, calculateEthPrice;
+
+try {
+    console.log('Loading CommonJS modules...');
+    ({ deployCeloContract } = require('./celo3.cjs'));
+    console.log('✅ Loaded celo3.cjs');
+    ({ deployEthContract } = require('./eth2.cjs'));
+    console.log('✅ Loaded eth2.cjs');
+    ({ deployBNBContract } = require('./newbnb.cjs'));
+    console.log('✅ Loaded newbnb.cjs');
+    ({ calculateCeloPrice } = require('./celoPrice.cjs'));
+    console.log('✅ Loaded celoPrice.cjs');
+    ({ calculateEthPrice } = require('./ethPrice.cjs'));
+    console.log('✅ Loaded ethPrice.cjs');
+} catch (error) {
+    console.error('❌ Error loading CommonJS modules:', error);
+    console.error('Stack trace:', error.stack);
+    process.exit(1);
+}
 
 // Check for required files at startup
 const requiredFiles = [
