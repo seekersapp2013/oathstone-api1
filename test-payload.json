@@ -1,0 +1,20 @@
+{
+  "environment": 0,
+  "contractTitle": "MyToken",
+  "solidityFiles": [
+    {
+      "name": "index",
+      "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"./Token.sol\";\nimport \"./Owned.sol\";\n\ncontract MyToken is Token, Owned {\n    constructor(uint256 initialSupply) Token(\"MyToken\", \"MTK\", initialSupply) {\n        owner = msg.sender;\n    }\n}\n"
+    },
+    {
+      "name": "Token",
+      "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Token {\n    string public name;\n    string public symbol;\n    uint256 public totalSupply;\n    mapping(address => uint256) public balanceOf;\n\n    constructor(string memory _name, string memory _symbol, uint256 _initialSupply) {\n        name = _name;\n        symbol = _symbol;\n        totalSupply = _initialSupply;\n        balanceOf[msg.sender] = _initialSupply;\n    }\n\n    function transfer(address _to, uint256 _amount) public returns (bool success) {\n        require(balanceOf[msg.sender] >= _amount, \"Insufficient balance\");\n        balanceOf[msg.sender] -= _amount;\n        balanceOf[_to] += _amount;\n        return true;\n    }\n}\n"
+    },
+    {
+      "name": "Owned",
+      "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Owned {\n    address public owner;\n\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Not the contract owner\");\n        _;\n    }\n\n    function transferOwnership(address newOwner) public onlyOwner {\n        owner = newOwner;\n    }\n}\n"
+    }
+  ],
+  "constructorArgs": [1000000],
+  "userPrivateKey": "0xdfca2e462be7699f264ecc80374067823560e5156ded92b53072a1965cc5bfcc"
+}
